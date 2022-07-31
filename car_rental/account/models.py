@@ -24,6 +24,7 @@ class MyAccountManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email), username=username, password=password
         )
+        user.set_password(password)
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
