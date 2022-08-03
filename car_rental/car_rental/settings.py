@@ -30,7 +30,7 @@ DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = "account.Account"
+
 
 
 # Application definition
@@ -72,6 +72,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = "account.Account"
 
 WSGI_APPLICATION = "car_rental.wsgi.application"
 

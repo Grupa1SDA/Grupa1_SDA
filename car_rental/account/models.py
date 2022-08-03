@@ -65,7 +65,7 @@ class Account(AbstractBaseUser):
     REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
-        return self.username
+        return self.email
 
     def get_profile_image_filename(self):
         return str(self.profie_image)[
@@ -75,4 +75,6 @@ class Account(AbstractBaseUser):
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
+    def has_module_perms(self, app_label):
+        return True
 
