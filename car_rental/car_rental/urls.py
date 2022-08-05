@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
-from account.views import registration_view, home_screen_view
+from account.views import registration_view, home_screen_view, logout_view, login_view
 
 
 urlpatterns = [
@@ -25,4 +25,7 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("", home_screen_view, name="home"),
     path("register/", registration_view, name="register"),
+    path("logout/", logout_view, name="logout"),
+    path("logout/", logout_view, name="logout"),
+    path("login/", login_view, name="login"),
 ]
