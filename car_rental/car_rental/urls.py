@@ -16,8 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-
-from account.views import registration_view, home_screen_view, logout_view, login_view
+from django.contrib.auth import views as auth_views
+from django.conf import settings
+from account.views import (
+    registration_view,
+    home_screen_view,
+    logout_view,
+    login_view,
+    account_view,
+)
 
 
 urlpatterns = [
@@ -26,6 +33,7 @@ urlpatterns = [
     path("", home_screen_view, name="home"),
     path("register/", registration_view, name="register"),
     path("logout/", logout_view, name="logout"),
-    path("logout/", logout_view, name="logout"),
     path("login/", login_view, name="login"),
+    path("account/", account_view, name="account"),
+
 ]
