@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
+import django.core.mail.backends.console
 import dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,6 +31,8 @@ DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = []
 
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" # During development only
 
 # Application definition
 
