@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from account.models import Account
 
+
 def registration_view(request):
     context = {}
     if request.POST:
@@ -21,8 +22,8 @@ def registration_view(request):
         context['registration_form'] = form
     return render(request, 'account/register.html', context)
 
-def home_screen_view(request):
 
+def home_screen_view(request):
     context = {}
 
     accounts = Account.objects.all()
@@ -30,9 +31,11 @@ def home_screen_view(request):
 
     return render(request, "account/home.html", context)
 
+
 def logout_view(request):
     logout(request)
     return redirect('home')
+
 
 def login_view(request):
     context = {}
@@ -49,7 +52,7 @@ def login_view(request):
             user = authenticate(email=email, password=password)
 
             if user:
-                login(request,user)
+                login(request, user)
                 return redirect("home")
 
     else:
@@ -58,29 +61,29 @@ def login_view(request):
     context['login_form'] = form
     return render(request, 'account/login.html', context)
 
+
 def account_view(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
 
-	if not request.user.is_authenticated:
-			return redirect("login")
+    context = {}
+    if request.POST:
+        form = AccountUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.initial = {
+                "email": request.POST['email'],
+                "username": request.POST['username'],
+            }
+            form.save()
+            context['success_message'] = "Updated"
+    else:
+        form = AccountUpdateForm(
 
-	context = {}
-	if request.POST:
-		form = AccountUpdateForm(request.POST, instance=request.user)
-		if form.is_valid():
-			form.initial = {
-					"email": request.POST['email'],
-					"username": request.POST['username'],
-			}
-			form.save()
-			context['success_message'] = "Updated"
-	else:
-		form = AccountUpdateForm(
+            initial={
+                "email": request.user.email,
+                "username": request.user.username,
+            }
+        )
 
-			initial={
-					"email": request.user.email,
-					"username": request.user.username,
-				}
-			)
-
-	context['account_form'] = form
-	return render(request, "account/account.html", context)
+    context['account_form'] = form
+    return render(request, "account/account.html", context)

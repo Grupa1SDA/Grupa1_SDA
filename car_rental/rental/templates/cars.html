@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-4 fw-normal">OneGroup Car Rental</h1>
+    <br>
+      <p class="fs-5 text-muted">Welcome to OneGroup Car Hire. In 1918, our founder, Walter Jacobs had a bold idea. He invented the car rental category. And we’ve been reinventing it ever since. Making life easier for our customers with innovative products, extraordinary levels of service and our award winning loyalty programme, Gold Plus Rewards. Today, with over 10,000 locations across 145 countries and 6 continents, we are the world’s most global car rental company. A trusted provider of vehicles for hire. By the day, the week or the month. You’re with Hertz. And we’ve got you covered. We’re here to get you there.</p>
+</div>
+{% for car in cars %}
+<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+
+            <h4 class="my-0 fw-normal">{{car}}</h4>
+
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">${{car.price}}<small class="text-muted fw-light">/day</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Year: {{car.year}}</li>
+              <li>Fuel: {{car.fuel}}</li>
+              <li>Seats: {{car.seats}}</li>
+              <li>ID: {{car.id}}</li>
+            </ul>
+              {% if request.user.is_authenticated %}
+            <button type="button" class="w-100 btn btn-lg btn-outline-primary ">Rent it now!</button>
+              {%else%}
+            <a class="w-100 btn btn-lg btn-outline-primary" href="{% url 'login' %}">Login</a>
+              {% endif %}
+          </div>
+        </div>
+      </div>
+</div>
+{% endfor %}
+{% endblock content %}
+
+

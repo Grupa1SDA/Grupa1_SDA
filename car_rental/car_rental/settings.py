@@ -38,6 +38,8 @@ if DEBUG:
 
 INSTALLED_APPS = [
     "account",
+    "rental",
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

@@ -27,14 +27,18 @@ from account.views import (
     account_view,
 )
 
+from rental.views import car_screen_view, car_detail
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", home_screen_view, name="home"),
+    path("", car_screen_view, name="home"),
     path("register/", registration_view, name="register"),
     path("logout/", logout_view, name="logout"),
     path("login/", login_view, name="login"),
     path("account/", account_view, name="account"),
+    path("account/", account_view, name="account"),
+    path("test/", home_screen_view, name="cars"),
+    path("detail/<int:id>", car_detail, name="detail"),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path('password_change/done/',
